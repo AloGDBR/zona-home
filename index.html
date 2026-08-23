@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <title>Zona Home</title>
+
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+<!-- =========================
+     SPLASH
+========================= -->
+
+<section id="splash" class="pantalla activa splash">
+
+  <img
+    src="img/logo.png"
+    class="logo-splash"
+    alt="Zona Home"
+  >
+
+  <div class="slogan">
+    TU ZONA,
+    <span>TU PASIÓN.</span>
+  </div>
+
+  <div class="linea"></div>
+
+</section>
+
+
+
+<!-- =========================
+     INICIO
+========================= -->
+
+<section id="inicio" class="pantalla">
+
+  <header class="topbar">
+
+    <button
+      class="icon-btn"
+      onclick="abrirMenu()"
+    >
+      ☰
+    </button>
+
+
+    <div class="titulo-app">
+
+      <h1>ZONA HOME</h1>
+
+      <span>ZONA SUR</span>
+
+    </div>
+
+
+    <button
+      class="icon-btn"
+      onclick="mostrarMensaje('Notificaciones')"
+    >
+      ♢
+    </button>
+
+  </header>
+
+
+  <main class="contenido">
+
+
+    <h2 class="pregunta">
+      ¿Qué quieres hacer hoy?
+    </h2>
+
+
+    <!-- ACCIONES -->
+
+    <div class="acciones">
+
+
+      <button
+        class="accion principal"
+        onclick="mostrarPantalla('scanner')"
+      >
+
+        <div class="accion-icono">
+          📷
+        </div>
+
+        <strong>ESCANEAR</strong>
+
+        <small>
+          Escanea un elemento
+        </small>
+
+      </button>
+
+
+
+      <button
+        class="accion"
+        onclick="mostrarPantalla('juegos')"
+      >
+
+        <div class="accion-icono">
+          🧩
+        </div>
+
+        <strong>JUEGOS</strong>
+
+        <small>
+          Trivia y rompecabezas
+        </small>
+
+      </button>
+
+
+
+      <button
+        class="accion"
+        onclick="mostrarPantalla('noticias')"
+      >
+
+        <div class="accion-icono">
+          📰
+        </div>
+
+        <strong>NOTICIAS</strong>
+
+        <small>
+          Consulta noticias
+        </small>
+
+      </button>
+
+
+
+      <button
+        class="accion"
+        onclick="mostrarPantalla('resultados')"
+      >
+
+        <div class="accion-icono">
+          📊
+        </div>
+
+        <strong>RESULTADOS</strong>
+
+        <small>
+          Consulta resultados
+        </small>
+
+      </button>
+
+
+    </div>
+
+
+
+    <!-- EQUIPOS -->
+
+    <div class="titulo-seccion">
+
+      <h3>
+        EQUIPOS ZONA SUR
+      </h3>
+
+      <button onclick="mostrarPantalla('equipos')">
+        Ver todos ›
+      </button>
+
+    </div>
+
+
+    <div class="preview-equipos">
+
+      <button>
+        <div class="circulo-logo">⚾</div>
+      </button>
+
+      <button>
+        <div class="circulo-logo">⚾</div>
+      </button>
+
+      <button>
+        <div class="circulo-logo">⚾</div>
+      </button>
+
+      <button>
+        <div class="circulo-logo">⚾</div>
+      </button>
+
+    </div>
+
+
+  </main>
+
+
+
+  <!-- NAVBAR -->
+
+  <nav class="navbar">
+
+
+    <button
+      class="nav-item activo"
+      onclick="mostrarPantalla('inicio')"
+    >
+      <span>⌂</span>
+      Inicio
+    </button>
+
+
+    <button
+      class="nav-item"
+      onclick="mostrarPantalla('equipos')"
+    >
+      <span>⚾</span>
+      Equipos
+    </button>
+
+
+    <button
+      class="scan-nav"
+      onclick="mostrarPantalla('scanner')"
+    >
+      📷
+    </button>
+
+
+    <button
+      class="nav-item"
+      onclick="mostrarPantalla('noticias')"
+    >
+      <span>📰</span>
+      Noticias
+    </button>
+
+
+    <button
+      class="nav-item"
+      onclick="mostrarPantalla('resultados')"
+    >
+      <span>📊</span>
+      Resultados
+    </button>
+
+
+  </nav>
+
+
+</section>
+
+
+
+<!-- =========================
+     ESCÁNER
+========================= -->
+
+<section id="scanner" class="pantalla">
+
+
+  <div class="encabezado">
+
+    <button onclick="mostrarPantalla('inicio')">
+      ←
+    </button>
+
+    <h2>
+      ESCÁNER AR
+    </h2>
+
+  </div>
+
+
+
+  <div class="camara">
+
+    <div class="scan-box"></div>
+
+    <p>
+      Apunta la cámara al elemento
+    </p>
+
+  </div>
+
+
+
+  <div class="ar-botones">
+
+    <button onclick="mostrarMensaje('Información')">
+      Información
+    </button>
+
+    <button onclick="mostrarMensaje('Animación')">
+      Animación
+    </button>
+
+    <button onclick="mostrarPantalla('videos')">
+      Video
+    </button>
+
+    <button onclick="mostrarMensaje('Efectos')">
+      Efectos
+    </button>
+
+  </div>
+
+
+
+  <div class="scanner-acciones">
+
+    <button onclick="mostrarPantalla('inicio')">
+      ← Regresar
+    </button>
+
+    <button onclick="mostrarMensaje('Listo para escanear')">
+      ↻ Escanear otro
+    </button>
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =========================
+     EQUIPOS
+========================= -->
+
+<section id="equipos" class="pantalla">
+
+
+  <div class="encabezado">
+
+    <button onclick="mostrarPantalla('inicio')">
+      ←
+    </button>
+
+    <h2>
+      EQUIPOS
+    </h2>
+
+  </div>
+
+
+  <div class="tabs">
+
+    <button class="seleccionado">
+      ZONA SUR
+    </button>
+
+    <button>
+      TODOS
+    </button>
+
+  </div>
+
+
+
+  <div class="lista-equipos">
+
+
+    <button class="fila-equipo">
+
+      <div class="circulo-equipo">
+        ⚾
+      </div>
+
+      <div class="lineas-placeholder">
+
+        <span></span>
+
+        <small></small>
+
+      </div>
+
+      <strong>›</strong>
+
+    </button>
+
+
+    <button class="fila-equipo">
+
+      <div class="circulo-equipo">
+        ⚾
+      </div>
+
+      <div class="lineas-placeholder">
+
+        <span></span>
+
+        <small></small>
+
+      </div>
+
+      <strong>›</strong>
+
+    </button>
+
+
+    <button class="fila-equipo">
+
+      <div class="circulo-equipo">
+        ⚾
+      </div>
+
+      <div class="lineas-placeholder">
+
+        <span></span>
+
+        <small></small>
+
+      </div>
+
+      <strong>›</strong>
+
+    </button>
+
+
+    <button class="fila-equipo">
+
+      <div class="circulo-equipo">
+        ⚾
+      </div>
+
+      <div class="lineas-placeholder">
+
+        <span></span>
+
+        <small></small>
+
+      </div>
+
+      <strong>›</strong>
+
+    </button>
+
+
+    <button class="fila-equipo">
+
+      <div class="circulo-equipo">
+        ⚾
+      </div>
+
+      <div class="lineas-placeholder">
+
+        <span></span>
+
+        <small></small>
+
+      </div>
+
+      <strong>›</strong>
+
+    </button>
+
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =========================
+     RESULTADOS
+========================= -->
+
+<section id="resultados" class="pantalla">
+
+
+  <div class="encabezado">
+
+    <button onclick="mostrarPantalla('inicio')">
+      ←
+    </button>
+
+    <h2>
+      RESULTADOS
+    </h2>
+
+  </div>
+
+
+
+  <div class="selector-fecha">
+
+    <button>‹</button>
+
+    <span>
+      📅 FECHA
+    </span>
+
+    <button>›</button>
+
+  </div>
+
+
+
+  <div class="resultado-placeholder">
+
+    <div class="equipo-placeholder">
+      <div class="mini-logo"></div>
+      <span></span>
+    </div>
+
+    <div class="vs">
+      VS
+    </div>
+
+    <div class="equipo-placeholder">
+      <div class="mini-logo"></div>
+      <span></span>
+    </div>
+
+  </div>
+
+
+
+  <div class="resultado-placeholder">
+
+    <div class="equipo-placeholder">
+      <div class="mini-logo"></div>
+      <span></span>
+    </div>
+
+    <div class="vs">
+      VS
+    </div>
+
+    <div class="equipo-placeholder">
+      <div class="mini-logo"></div>
+      <span></span>
+    </div>
+
+  </div>
+
+
+
+  <div class="resultado-placeholder">
+
+    <div class="equipo-placeholder">
+      <div class="mini-logo"></div>
+      <span></span>
+    </div>
+
+    <div class="vs">
+      VS
+    </div>
+
+    <div class="equipo-placeholder">
+      <div class="mini-logo"></div>
+      <span></span>
+    </div>
+
+  </div>
+
+
+
+  <button
+    class="boton-borde"
+    onclick="mostrarPantalla('posiciones')"
+  >
+    VER POSICIONES
+  </button>
+
+
+</section>
+
+
+
+<!-- =========================
+     POSICIONES
+========================= -->
+
+<section id="posiciones" class="pantalla">
+
+
+  <div class="encabezado">
+
+    <button onclick="mostrarPantalla('resultados')">
+      ←
+    </button>
+
+    <h2>
+      POSICIONES
+    </h2>
+
+  </div>
+
+
+
+  <div class="tabs">
+
+    <button class="seleccionado">
+      ZONA SUR
+    </button>
+
+    <button>
+      GENERAL
+    </button>
+
+  </div>
+
+
+
+  <div class="tabla">
+
+
+    <div class="tabla-head">
+
+      <span>Equipo</span>
+
+      <span>G</span>
+
+      <span>P</span>
+
+      <span>%</span>
+
+      <span>GB</span>
+
+    </div>
+
+
+    <div class="tabla-linea">
+
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+
+    </div>
+
+
+    <div class="tabla-linea">
+
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+
+    </div>
+
+
+    <div class="tabla-linea">
+
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+
+    </div>
+
+
+    <div class="tabla-linea">
+
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+
+    </div>
+
+
+    <div class="tabla-linea">
+
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+
+    </div>
+
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =========================
+     NOTICIAS
+========================= -->
+
+<section id="noticias" class="pantalla">
+
+
+  <div class="encabezado">
+
+    <button onclick="mostrarPantalla('inicio')">
+      ←
+    </button>
+
+    <h2>
+      NOTICIAS
+    </h2>
+
+  </div>
+
+
+
+  <div class="noticias-lista">
+
+
+    <button class="noticia-card">
+
+      <div class="noticia-foto"></div>
+
+      <div class="noticia-texto">
+
+        <span></span>
+
+        <small></small>
+
+        <small></small>
+
+      </div>
+
+    </button>
+
+
+
+    <button class="noticia-card">
+
+      <div class="noticia-foto"></div>
+
+      <div class="noticia-texto">
+
+        <span></span>
+
+        <small></small>
+
+        <small></small>
+
+      </div>
+
+    </button>
+
+
+
+    <button class="noticia-card">
+
+      <div class="noticia-foto"></div>
+
+      <div class="noticia-texto">
+
+        <span></span>
+
+        <small></small>
+
+        <small></small>
+
+      </div>
+
+    </button>
+
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =========================
+     JUEGOS
+========================= -->
+
+<section id="juegos" class="pantalla">
+
+
+  <div class="encabezado">
+
+    <button onclick="mostrarPantalla('inicio')">
+      ←
+    </button>
+
+    <h2>
+      JUEGOS
+    </h2>
+
+  </div>
+
+
+
+  <div class="juegos-grid">
+
+
+    <button
+      class="juego-card"
+      onclick="mostrarPantalla('trivia')"
+    >
+
+      <div class="juego-icono">
+        🧠
+      </div>
+
+      <h3>
+        TRIVIA
+      </h3>
+
+    </button>
+
+
+
+    <button
+      class="juego-card"
+      onclick="mostrarPantalla('rompecabezas')"
+    >
+
+      <div class="juego-icono">
+        🧩
+      </div>
+
+      <h3>
+        ROMPECABEZAS
+      </h3>
+
+    </button>
+
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =========================
+     TRIVIA
+========================= -->
+
+<section id="trivia" class="pantalla">
+
+
+  <div class="encabezado">
+
+    <button onclick="mostrarPantalla('juegos')">
+      ←
+    </button>
+
+    <h2>
+      TRIVIA
+    </h2>
+
+  </div>
+
+
+
+  <div class="trivia-top">
+
+    <span>
+      Pregunta 1 de 10
+    </span>
+
+    <div class="barra">
+      <div></div>
+    </div>
+
+  </div>
+
+
+
+  <div class="pregunta-placeholder"></div>
+
+
+
+  <div class="respuestas">
+
+
+    <button onclick="seleccionarRespuesta(this)">
+      Opción A
+    </button>
+
+
+    <button onclick="seleccionarRespuesta(this)">
+      Opción B
+    </button>
+
+
+    <button onclick="seleccionarRespuesta(this)">
+      Opción C
+    </button>
+
+
+    <button onclick="seleccionarRespuesta(this)">
+      Opción D
+    </button>
+
+
+  </div>
+
+
+
+  <button
+    class="boton-verde ancho"
+    onclick="mostrarMensaje('Respuesta seleccionada')"
+  >
+    RESPONDER
+  </button>
+
+
+</section>
+
+
+
+<!-- =========================
+     ROMPECABEZAS
+========================= -->
+
+<section id="rompecabezas" class="pantalla">
+
+
+  <div class="encabezado">
+
+    <button onclick="mostrarPantalla('juegos')">
+      ←
+    </button>
+
+    <h2>
+      ROMPECABEZAS
+    </h2>
+
+  </div>
+
+
+
+  <div class="puzzle-info">
+
+    <div>
+
+      <small>
+        TIEMPO
+      </small>
+
+      <strong>
+        00:00
+      </strong>
+
+    </div>
+
+
+    <div>
+
+      <small>
+        MOVIMIENTOS
+      </small>
+
+      <strong>
+        0
+      </strong>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="puzzle">
+
+
+    <div></div>
+    <div></div>
+    <div></div>
+
+    <div></div>
+    <div></div>
+    <div></div>
+
+    <div></div>
+    <div></div>
+    <div class="puzzle-vacio"></div>
+
+
+  </div>
+
+
+
+  <div class="puzzle-botones">
+
+
+    <button
+      class="boton-borde"
+      onclick="mostrarMensaje('Rompecabezas reiniciado')"
+    >
+      ↻ REINICIAR
+    </button>
+
+
+    <button
+      class="boton-verde"
+      onclick="mostrarPantalla('juegos')"
+    >
+      MENÚ
+    </button>
+
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =========================
+     VIDEOS
+========================= -->
+
+<section id="videos" class="pantalla">
+
+
+  <div class="encabezado">
+
+    <button onclick="mostrarPantalla('inicio')">
+      ←
+    </button>
+
+    <h2>
+      VIDEOS
+    </h2>
+
+  </div>
+
+
+
+  <div class="video-box">
+
+    <button
+      onclick="mostrarMensaje('Reproducir video')"
+    >
+      ▶
+    </button>
+
+  </div>
+
+
+
+  <h3 class="subtitulo">
+    FILTROS
+  </h3>
+
+
+
+  <div class="filtros-video">
+
+
+    <button onclick="activarFiltro(this)">
+      Desenfoque
+    </button>
+
+
+    <button onclick="activarFiltro(this)">
+      Pixelado
+    </button>
+
+
+    <button onclick="activarFiltro(this)">
+      Cámara térmica
+    </button>
+
+
+    <button onclick="activarFiltro(this)">
+      Ajuste de color
+    </button>
+
+
+    <button onclick="activarFiltro(this)">
+      Suavizado
+    </button>
+
+
+    <button onclick="activarFiltro(this)">
+      Colores pastel
+    </button>
+
+
+    <button onclick="activarFiltro(this)">
+      Alta saturación
+    </button>
+
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =========================
+     CONFIGURACIÓN
+========================= -->
+
+<section id="configuracion" class="pantalla">
+
+
+  <div class="encabezado">
+
+    <button onclick="mostrarPantalla('inicio')">
+      ←
+    </button>
+
+    <h2>
+      CONFIGURACIÓN
+    </h2>
+
+  </div>
+
+
+
+  <div class="configuracion">
+
+
+    <div>
+
+      <span>
+        Sonidos
+      </span>
+
+      <button onclick="toggleConfig(this)">
+        Activado
+      </button>
+
+    </div>
+
+
+
+    <div>
+
+      <span>
+        Animaciones
+      </span>
+
+      <button onclick="toggleConfig(this)">
+        Activado
+      </button>
+
+    </div>
+
+
+
+    <div>
+
+      <span>
+        Notificaciones
+      </span>
+
+      <button onclick="toggleConfig(this)">
+        Activado
+      </button>
+
+    </div>
+
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =========================
+     ACERCA
+========================= -->
+
+<section id="acerca" class="pantalla">
+
+
+  <div class="encabezado">
+
+    <button onclick="mostrarPantalla('inicio')">
+      ←
+    </button>
+
+    <h2>
+      ACERCA DE
+    </h2>
+
+  </div>
+
+
+
+  <div class="acerca">
+
+    <img
+      src="img/logo.png"
+      alt="Zona Home"
+    >
+
+    <h3>
+      TU ZONA,
+      <span>TU PASIÓN.</span>
+    </h3>
+
+    <div class="linea"></div>
+
+    <small>
+      Versión 1.0.0
+    </small>
+
+  </div>
+
+
+</section>
+
+
+</div>
+
+
+
+<!-- =========================
+     OVERLAY
+========================= -->
+
+<div
+  id="overlay"
+  class="overlay"
+  onclick="cerrarMenu()"
+></div>
+
+
+
+<!-- =========================
+     MENÚ LATERAL
+========================= -->
+
+<aside
+  id="menuLateral"
+  class="menu-lateral"
+>
+
+
+  <div class="menu-logo">
+
+    <img
+      src="img/logo.png"
+      alt="Zona Home"
+    >
+
+  </div>
+
+
+
+  <nav class="menu-opciones">
+
+
+    <button onclick="irDesdeMenu('inicio')">
+      <span>⌂</span>
+      Inicio
+    </button>
+
+
+    <button onclick="irDesdeMenu('scanner')">
+      <span>📷</span>
+      Escáner AR
+    </button>
+
+
+    <button onclick="irDesdeMenu('equipos')">
+      <span>⚾</span>
+      Equipos
+    </button>
+
+
+    <button onclick="irDesdeMenu('resultados')">
+      <span>📊</span>
+      Resultados
+    </button>
+
+
+    <button onclick="irDesdeMenu('posiciones')">
+      <span>🏆</span>
+      Posiciones
+    </button>
+
+
+    <button onclick="irDesdeMenu('noticias')">
+      <span>📰</span>
+      Noticias
+    </button>
+
+
+
+    <button
+      class="menu-juegos"
+      onclick="toggleJuegos()"
+    >
+
+      <span>🎮</span>
+
+      Juegos
+
+      <strong>›</strong>
+
+    </button>
+
+
+
+    <div
+      id="submenuJuegos"
+      class="submenu"
+    >
+
+      <button onclick="irDesdeMenu('trivia')">
+        🧠 Trivia
+      </button>
+
+
+      <button onclick="irDesdeMenu('rompecabezas')">
+        🧩 Rompecabezas
+      </button>
+
+
+    </div>
+
+
+
+    <button onclick="irDesdeMenu('videos')">
+      <span>▶</span>
+      Videos
+    </button>
+
+
+
+    <div class="separador"></div>
+
+
+
+    <button onclick="irDesdeMenu('configuracion')">
+      <span>⚙</span>
+      Configuración
+    </button>
+
+
+    <button onclick="irDesdeMenu('acerca')">
+      <span>ⓘ</span>
+      Acerca de Zona Home
+    </button>
+
+
+  </nav>
+
+
+
+  <div class="menu-footer">
+
+    <div class="sol">
+      ☀
+    </div>
+
+    <strong>
+      TU ZONA,
+      <span>TU PASIÓN.</span>
+    </strong>
+
+    <small>
+      Versión 1.0.0
+    </small>
+
+  </div>
+
+
+</aside>
+
+
+
+<div
+  id="mensaje"
+  class="mensaje"
+></div>
+
+
+<script src="js/script.js"></script>
+
+</body>
+
+</html>

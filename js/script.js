@@ -1,135 +1,248 @@
-/* =========================
-   CAMBIAR PANTALLA
-========================= */
+/* ==============================
+   PANTALLAS
+============================== */
 
 function mostrarPantalla(id) {
 
   const pantallas =
     document.querySelectorAll(".pantalla");
 
-
   pantallas.forEach(pantalla => {
-
     pantalla.classList.remove("activa");
-
   });
-
 
   const destino =
     document.getElementById(id);
 
-
-  if(destino){
-
+  if (destino) {
     destino.classList.add("activa");
-
   }
 
-
-  window.scrollTo(0,0);
-
+  window.scrollTo(0, 0);
 }
 
 
-
-/* =========================
+/* ==============================
    MENÚ
-========================= */
+============================== */
 
-function abrirMenu(){
+function abrirMenu() {
 
   document
     .getElementById("menuLateral")
     .classList.add("abierto");
 
-
   document
     .getElementById("overlay")
     .classList.add("activo");
-
 }
 
 
-
-function cerrarMenu(){
+function cerrarMenu() {
 
   document
     .getElementById("menuLateral")
     .classList.remove("abierto");
 
-
   document
     .getElementById("overlay")
     .classList.remove("activo");
-
 }
 
 
-
-function irDesdeMenu(id){
+function irDesdeMenu(id) {
 
   mostrarPantalla(id);
 
   cerrarMenu();
-
 }
 
 
+function toggleJuegos() {
 
-/* =========================
-   SUBMENÚ JUEGOS
-========================= */
-
-function toggleJuegos(){
-
-  const submenu =
-    document.getElementById("submenuJuegos");
-
-
-  submenu.classList.toggle("abierto");
-
+  document
+    .getElementById("submenuJuegos")
+    .classList.toggle("abierto");
 }
 
 
+/* ==============================
+   CARRUSEL
+============================== */
 
-/* =========================
-   MENSAJES
-========================= */
+let slideActual = 0;
 
-function mostrarMensaje(texto){
-
-  const mensaje =
-    document.getElementById("mensaje");
+const totalSlides = 4;
 
 
-  mensaje.textContent =
-    texto;
+function actualizarCarrusel() {
+
+  const track =
+    document.getElementById("carruselTrack");
+
+  if (!track) return;
+
+  track.style.transform =
+    `translateX(-${slideActual * 100}%)`;
 
 
-  mensaje.classList.add("mostrar");
+  const dots =
+    document.querySelectorAll(".dot");
 
+  dots.forEach((dot, index) => {
 
-  setTimeout(() => {
+    dot.classList.toggle(
+      "activo",
+      index === slideActual
+    );
 
-    mensaje.classList.remove("mostrar");
-
-  },1500);
-
+  });
 }
 
 
+function cambiarSlide(direccion) {
 
-/* =========================
+  slideActual =
+    slideActual + direccion;
+
+  if (slideActual >= totalSlides) {
+    slideActual = 0;
+  }
+
+  if (slideActual < 0) {
+    slideActual = totalSlides - 1;
+  }
+
+  actualizarCarrusel();
+}
+
+
+function irASlide(numero) {
+
+  slideActual = numero;
+
+  actualizarCarrusel();
+}
+
+
+/* CAMBIO AUTOMÁTICO */
+
+setInterval(() => {
+
+  cambiarSlide(1);
+
+}, 5000);
+
+
+/* SWIPE EN CELULAR */
+
+let inicioTouch = 0;
+
+document.addEventListener(
+  "touchstart",
+  function(evento) {
+
+    const carrusel =
+      evento.target.closest(".carrusel");
+
+    if (!carrusel) return;
+
+    inicioTouch =
+      evento.touches[0].clientX;
+
+  }
+);
+
+
+document.addEventListener(
+  "touchend",
+  function(evento) {
+
+    const carrusel =
+      evento.target.closest(".carrusel");
+
+    if (!carrusel) return;
+
+    const finalTouch =
+      evento.changedTouches[0].clientX;
+
+    const diferencia =
+      inicioTouch - finalTouch;
+
+
+    if (Math.abs(diferencia) > 50) {
+
+      if (diferencia > 0) {
+
+        cambiarSlide(1);
+
+      }
+
+      else {
+
+        cambiarSlide(-1);
+
+      }
+
+    }
+
+  }
+);
+
+
+/* ==============================
+   RECOMPENSAS
+============================== */
+
+function mostrarRecompensa(id, boton) {
+
+  const contenidos =
+    document.querySelectorAll(
+      ".contenido-recompensa"
+    );
+
+  contenidos.forEach(contenido => {
+
+    contenido.classList.remove(
+      "activo"
+    );
+
+  });
+
+
+  const tabs =
+    document.querySelectorAll(
+      ".tab-recompensa"
+    );
+
+  tabs.forEach(tab => {
+
+    tab.classList.remove(
+      "activo"
+    );
+
+  });
+
+
+  document
+    .getElementById(id)
+    .classList.add("activo");
+
+
+  boton.classList.add("activo");
+}
+
+
+/* ==============================
    TRIVIA
-========================= */
+============================== */
 
-function seleccionarRespuesta(boton){
+function seleccionarRespuesta(boton) {
 
   const respuestas =
     document.querySelectorAll(
       ".respuestas button"
     );
-
 
   respuestas.forEach(respuesta => {
 
@@ -139,26 +252,22 @@ function seleccionarRespuesta(boton){
 
   });
 
-
   boton.classList.add(
     "seleccionado"
   );
-
 }
 
 
+/* ==============================
+   FILTROS
+============================== */
 
-/* =========================
-   FILTROS VIDEO
-========================= */
-
-function activarFiltro(boton){
+function activarFiltro(boton) {
 
   const filtros =
     document.querySelectorAll(
       ".filtros-video button"
     );
-
 
   filtros.forEach(filtro => {
 
@@ -168,62 +277,66 @@ function activarFiltro(boton){
 
   });
 
-
-  boton.classList.add(
-    "activo"
-  );
-
+  boton.classList.add("activo");
 
   mostrarMensaje(
     "Filtro seleccionado"
   );
-
 }
 
 
-
-/* =========================
+/* ==============================
    CONFIGURACIÓN
-========================= */
+============================== */
 
-function toggleConfig(boton){
+function toggleConfig(boton) {
 
-  if(
+  if (
     boton.textContent.trim()
     === "Activado"
-  ){
+  ) {
 
     boton.textContent =
       "Desactivado";
 
-    boton.style.color =
-      "#E65C2E";
-
-    boton.style.background =
-      "rgba(230,92,46,.1)";
-
   }
 
-  else{
+  else {
 
     boton.textContent =
       "Activado";
 
-    boton.style.color =
-      "#138A43";
-
-    boton.style.background =
-      "rgba(19,138,67,.1)";
-
   }
-
 }
 
 
+/* ==============================
+   MENSAJES
+============================== */
 
-/* =========================
-   SPLASH SCREEN
-========================= */
+function mostrarMensaje(texto) {
+
+  const mensaje =
+    document.getElementById("mensaje");
+
+  mensaje.textContent = texto;
+
+  mensaje.classList.add("mostrar");
+
+
+  setTimeout(() => {
+
+    mensaje.classList.remove(
+      "mostrar"
+    );
+
+  }, 1500);
+}
+
+
+/* ==============================
+   SPLASH
+============================== */
 
 window.addEventListener(
   "DOMContentLoaded",
@@ -233,7 +346,7 @@ window.addEventListener(
 
       mostrarPantalla("inicio");
 
-    },2300);
+    }, 2300);
 
   }
 );

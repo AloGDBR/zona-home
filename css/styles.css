@@ -1175,6 +1175,11 @@ button {
   gap: 5px;
 }
 
+.puzzle-info div + div {
+  border-left: 1px solid var(--borde);
+  padding-left: 20px;
+}
+
 .puzzle {
   width: 300px;
   height: 300px;

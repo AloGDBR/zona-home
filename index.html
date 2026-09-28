@@ -14,6 +14,11 @@
 
   <link rel="stylesheet"
         href="css/styles.css">
+
+  <!-- A-Frame + MindAR (realidad aumentada por reconocimiento de imagen) -->
+  <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 
 <body>
@@ -697,12 +702,41 @@
   </div>
 
 
-  <div class="camara">
+  <div class="camara"
+       id="camaraAR">
 
-    <div class="scan-box"></div>
+    <a-scene
+      id="arScene"
+      mindar-image="imageTargetSrc: targets/diablos.mind; autoStart: false; uiScanning: no; uiLoading: no;"
+      color-space="sRGB"
+      renderer="colorManagement: true, physicallyCorrectLights, preserveDrawingBuffer: true"
+      vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: false"
+      embedded>
 
-    <p>
-      Apunta la cámara al elemento
+      <a-assets>
+        <a-asset-item id="modeloGorra"
+                      src="models/Gorra.glb"></a-asset-item>
+      </a-assets>
+
+      <a-camera position="0 0 0"
+                look-controls="enabled: false"></a-camera>
+
+      <a-entity id="targetDiablos"
+                mindar-image-target="targetIndex: 0">
+
+        <a-gltf-model id="modeloAR"
+                      src="#modeloGorra"
+                      position="0 -0.5 0"
+                      scale="0.225 0.225 0.225"
+                      rotation="0 0 0"></a-gltf-model>
+
+      </a-entity>
+
+    </a-scene>
+
+    <p id="scanHint">
+      Apunta la cámara al logo de Diablos
     </p>
 
   </div>
@@ -710,19 +744,19 @@
 
   <div class="ar-botones">
 
-    <button onclick="mostrarMensaje('Información')">
+    <button onclick="abrirInfoAR()">
       Información
     </button>
 
-    <button onclick="mostrarMensaje('Animación')">
+    <button onclick="toggleAnimacionGorra()">
       Animación
     </button>
 
-    <button onclick="mostrarPantalla('videos')">
-      Video
+    <button onclick="capturarPantallaAR()">
+      Captura
     </button>
 
-    <button onclick="mostrarMensaje('Efectos')">
+    <button onclick="lanzarConfetiAR()">
       Efectos
     </button>
 
@@ -737,6 +771,39 @@
 
     <button onclick="mostrarMensaje('Listo para escanear')">
       ↻ Escanear otro
+    </button>
+
+  </div>
+
+
+  <div class="overlay"
+       id="overlayInfoAR"
+       onclick="cerrarInfoAR()"></div>
+
+  <div class="hoja-info"
+       id="panelInfoGorra">
+
+    <div class="hoja-info-manija"></div>
+
+    <h3>Diablos Rojos del México</h3>
+
+    <p class="hoja-info-detalle">
+      Zona Sur · Liga Mexicana de Béisbol 2026
+    </p>
+
+    <p>
+      <strong>1er lugar</strong> de la Zona Sur en la temporada
+      regular 2026. En playoffs avanzaron el Primer Playoff, pero
+      fueron eliminados en la Serie de Zona ante Pericos de Puebla.
+    </p>
+
+    <p class="hoja-info-detalle">
+      Actualizado: 12 de septiembre de 2026
+    </p>
+
+    <button class="hoja-info-cerrar"
+            onclick="cerrarInfoAR()">
+      Cerrar
     </button>
 
   </div>
@@ -863,20 +930,36 @@
 
   <div class="selector-fecha">
 
-    <button>‹</button>
+    <button onclick="cambiarFechaResultados(-1)">‹</button>
 
-    <span>📅 FECHA</span>
+    <span id="fechaResultados">📅 6 AGO 2026</span>
 
-    <button>›</button>
+    <button onclick="cambiarFechaResultados(1)">›</button>
 
   </div>
 
+  <p class="resultados-nota">
+    Cierre de la temporada regular 2026 · Zona Sur
+  </p>
 
-  <div class="resultado-placeholder"></div>
 
-  <div class="resultado-placeholder"></div>
+  <div class="resultado-item">
+    <span class="resultado-equipo">Piratas de Campeche</span>
+    <span class="resultado-marcador">9 - 1</span>
+    <span class="resultado-equipo">Olmecas de Tabasco</span>
+  </div>
 
-  <div class="resultado-placeholder"></div>
+  <div class="resultado-item">
+    <span class="resultado-equipo">El Águila de Veracruz</span>
+    <span class="resultado-marcador">10 - 6</span>
+    <span class="resultado-equipo">Pericos de Puebla</span>
+  </div>
+
+  <div class="resultado-item">
+    <span class="resultado-equipo">Guerreros de Oaxaca</span>
+    <span class="resultado-marcador">12 - 3</span>
+    <span class="resultado-equipo">Diablos Rojos</span>
+  </div>
 
 
   <button class="boton-borde ancho"
@@ -938,15 +1021,53 @@
     </div>
 
 
-    <div class="tabla-linea"></div>
+    <div class="tabla-linea">
+      <span>Diablos Rojos</span>
+      <span>64</span>
+      <span>29</span>
+      <span>.688</span>
+      <span>—</span>
+    </div>
 
-    <div class="tabla-linea"></div>
+    <div class="tabla-linea">
+      <span>Olmecas Tabasco</span>
+      <span>54</span>
+      <span>38</span>
+      <span>.587</span>
+      <span>9.5</span>
+    </div>
 
-    <div class="tabla-linea"></div>
+    <div class="tabla-linea">
+      <span>Piratas Campeche</span>
+      <span>52</span>
+      <span>41</span>
+      <span>.559</span>
+      <span>12</span>
+    </div>
 
-    <div class="tabla-linea"></div>
+    <div class="tabla-linea">
+      <span>Pericos Puebla</span>
+      <span>50</span>
+      <span>42</span>
+      <span>.543</span>
+      <span>13.5</span>
+    </div>
 
-    <div class="tabla-linea"></div>
+    <div class="tabla-linea">
+      <span>Bravos León</span>
+      <span>50</span>
+      <span>43</span>
+      <span>.538</span>
+      <span>14</span>
+    </div>
+
+    <div class="tabla-linea">
+      <span>Guerreros Oaxaca</span>
+      <span>48</span>
+      <span>45</span>
+      <span>.516</span>
+      <span>16</span>
+    </div>
 
   </div>
 
@@ -974,11 +1095,95 @@
 
   <div class="noticias-lista">
 
-    <div class="noticia-card"></div>
+    <article class="noticia-card">
 
-    <div class="noticia-card"></div>
+      <div class="noticia-imagen">🏆</div>
 
-    <div class="noticia-card"></div>
+      <div class="noticia-texto">
+        <span class="noticia-fecha">16 sep 2026</span>
+        <h4>Toros de Tijuana, campeones de la Serie del Rey 2026</h4>
+        <p>
+          Vencieron 4-2 a Olmecas de Tabasco en el Juego 6 y se
+          coronaron por tercera vez en su historia (2017, 2021, 2026).
+        </p>
+      </div>
+
+    </article>
+
+    <article class="noticia-card">
+
+      <div class="noticia-imagen">🌴</div>
+
+      <div class="noticia-texto">
+        <span class="noticia-fecha">Zona Sur</span>
+        <h4>Olmecas de Tabasco regresó a la final tras 33 años</h4>
+        <p>
+          Los tabasqueños conquistaron la Zona Sur y llegaron a su
+          primera Serie del Rey desde 1993.
+        </p>
+      </div>
+
+    </article>
+
+    <article class="noticia-card">
+
+      <div class="noticia-imagen">👹</div>
+
+      <div class="noticia-texto">
+        <span class="noticia-fecha">Zona Sur</span>
+        <h4>Diablos Rojos, eliminados en la Serie de Zona</h4>
+        <p>
+          Los defensores del título cayeron ante Pericos de Puebla
+          y se quedaron sin el tricampeonato.
+        </p>
+      </div>
+
+    </article>
+
+    <article class="noticia-card">
+
+      <div class="noticia-imagen">⭐</div>
+
+      <div class="noticia-texto">
+        <span class="noticia-fecha">16 sep 2026</span>
+        <h4>Hernán Pérez, MVP de la Serie del Rey 2026</h4>
+        <p>
+          El venezolano de Toros de Tijuana se llevó el premio tras
+          su aportación ofensiva clave en los juegos 2 y 5 de la final.
+        </p>
+      </div>
+
+    </article>
+
+    <article class="noticia-card">
+
+      <div class="noticia-imagen">🐐</div>
+
+      <div class="noticia-texto">
+        <span class="noticia-fecha">Zona Sur</span>
+        <h4>Pericos rompe el reinado de Diablos en 6 juegos</h4>
+        <p>
+          Puebla blanqueó 3-0 a los Diablos en el Juego 6 de la
+          Serie de Zona y terminó con el bicampeonato escarlata.
+        </p>
+      </div>
+
+    </article>
+
+    <article class="noticia-card">
+
+      <div class="noticia-imagen">🏟️</div>
+
+      <div class="noticia-texto">
+        <span class="noticia-fecha">Temporada regular 2026</span>
+        <h4>Diablos Rojos cerró como líder absoluto de la LMB</h4>
+        <p>
+          Terminaron con marca de 64-29 (.688) y diferencial de
+          +233 carreras, el mejor registro de toda la liga.
+        </p>
+      </div>
+
+    </article>
 
   </div>
 
@@ -1131,30 +1336,23 @@
     <div>
 
       <small>MOVIMIENTOS</small>
-
-      <strong>0</strong>
-
+      <strong id="puzzle-movimientos">0</strong>
     </div>
 
   </div>
 
-
-  <div class="puzzle">
-
-    <div></div>
-    <div></div>
-    <div></div>
-
-    <div></div>
-    <div></div>
-    <div></div>
-
-    <div></div>
-    <div></div>
-    <div class="puzzle-vacio"></div>
-
+ <div
+    class="puzzle"
+    id="puzzle-tablero"
+    aria-label="Rompecabezas de Diablos Rojos">
   </div>
 
+  <div class="puzzle-botones">
+    <button class="boton-verde"
+            onclick="mostrarPantalla('juegos')">
+      MENÚ
+    </button>
+  </div>
 
   <div class="puzzle-botones">
 
@@ -1199,9 +1397,11 @@
 
   <div class="video-box">
 
-    <button onclick="mostrarMensaje('Reproducir')">
-      ▶
-    </button>
+    <iframe
+      src="https://www.youtube-nocookie.com/embed/CWrvLWrRoqw"
+      title="Resumen Diablos 10-1 Piratas | LMB Banorte 2026"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen></iframe>
 
   </div>
 
@@ -1504,6 +1704,7 @@
 
 
 <script src="js/script.js"></script>
+<script src="js/ar.js"></script>
 
 </body>
 </html>

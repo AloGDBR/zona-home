@@ -896,14 +896,48 @@ button {
   color: var(--azul);
 }
 
-.resultado-placeholder {
-  height: 90px;
+.resultados-nota {
+  margin: 0 20px 8px;
+  font-size: 12px;
+  color: var(--gris);
+  text-align: center;
+}
+
+.resultado-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+
+  min-height: 70px;
   margin: 10px 20px;
+  padding: 0 14px;
 
   border: 1px solid var(--borde);
   border-radius: 16px;
-
   background: var(--crema);
+}
+
+.resultado-equipo {
+  flex: 1;
+  font-size: 12.5px;
+  font-weight: bold;
+  color: var(--azul);
+}
+
+.resultado-equipo:last-child {
+  text-align: right;
+}
+
+.resultado-marcador {
+  flex: 0 0 auto;
+  padding: 6px 10px;
+  border-radius: 10px;
+
+  background: var(--azul);
+  color: white;
+  font-weight: bold;
+  font-size: 13px;
 }
 
 .boton-borde {
@@ -943,8 +977,19 @@ button {
 }
 
 .tabla-linea {
+  display: grid;
+  grid-template-columns: 2.5fr repeat(4, .7fr);
+  align-items: center;
+
   height: 50px;
   border-bottom: 1px solid #E7DDC5;
+
+  font-size: 12.5px;
+}
+
+.tabla-linea span:first-child {
+  font-weight: bold;
+  color: var(--azul);
 }
 
 
@@ -955,18 +1000,67 @@ button {
 }
 
 .noticia-card {
-  height: 115px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+
+  padding: 14px;
   margin-bottom: 12px;
 
   border: 1px solid var(--borde);
   border-radius: 16px;
+  background: var(--crema);
+}
+
+.noticia-imagen {
+  flex: 0 0 56px;
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 26px;
 
   background:
     linear-gradient(
-      90deg,
-      #D6CEBA 35%,
-      var(--crema) 35%
+      145deg,
+      var(--azul),
+      #0d3a73
     );
+}
+
+.noticia-texto {
+  flex: 1;
+  min-width: 0;
+}
+
+.noticia-fecha {
+  display: block;
+  margin-bottom: 3px;
+
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: var(--naranja);
+}
+
+.noticia-texto h4 {
+  margin: 0 0 4px;
+  font-size: 14px;
+  line-height: 1.3;
+  color: var(--azul);
+}
+
+.noticia-texto p {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--azul);
+  opacity: .8;
 }
 
 
@@ -1065,7 +1159,7 @@ button {
 
 .puzzle-info {
   display: grid;
-  grid-template-columns: repeat(2,1fr);
+  grid-template-columns: 1fr;
 
   margin: 0 20px 15px;
   padding: 18px;
@@ -1081,11 +1175,6 @@ button {
   gap: 5px;
 }
 
-.puzzle-info div + div {
-  border-left: 1px solid var(--borde);
-  padding-left: 20px;
-}
-
 .puzzle {
   width: 300px;
   height: 300px;
@@ -1094,31 +1183,33 @@ button {
   margin: 25px auto;
 
   display: grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 4px;
 }
 
-.puzzle div {
+.puzzle button {
   border-radius: 8px;
   border: 1px solid var(--borde);
+  padding: 0;
 
-  background:
-    linear-gradient(
-      145deg,
-      #102A4A,
-      #29537A
-    );
+  background-color: #fff;
+  background-image: url('../img/diablos_rojos.png');
+  background-size: 300% 300%;
+
+  cursor: pointer;
+  touch-action: manipulation;
 }
 
 .puzzle .puzzle-vacio {
   background: #EADFC4;
+  cursor: default;
 }
 
 .puzzle-botones {
   padding: 0 20px;
 
   display: grid;
-  grid-template-columns: repeat(2,1fr);
+  grid-template-columns: 1fr;
   gap: 10px;
 }
 
@@ -1129,6 +1220,7 @@ button {
   margin: 10px 20px 25px;
   height: 220px;
   border-radius: 20px;
+  overflow: hidden;
 
   background:
     linear-gradient(
@@ -1140,6 +1232,12 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.video-box iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
 }
 
 .video-box button {
@@ -1385,4 +1483,150 @@ button {
 .mensaje.mostrar {
   opacity: 1;
   visibility: visible;
+}
+
+
+/* ==============================
+   ESCÁNER AR (MindAR + A-Frame)
+============================== */
+
+.camara {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  padding: 0;
+}
+
+.camara a-scene {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.camara .a-canvas {
+  border-radius: 22px;
+  position: absolute;
+  z-index: 1;
+}
+
+#scanHint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 18px;
+
+  margin: 0;
+  padding: 0 20px;
+
+  text-align: center;
+  font-size: 13px;
+  color: white;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+
+  pointer-events: none;
+  transition: opacity .25s ease;
+  z-index: 5;
+}
+
+#scanHint.oculto {
+  opacity: 0;
+}
+
+
+/* ==============================
+   PANEL DE INFORMACIÓN (AR)
+============================== */
+
+.hoja-info {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+
+  background: var(--crema);
+  border-radius: 22px 22px 0 0;
+
+  padding: 14px 22px 28px;
+
+  transform: translateY(100%);
+  transition: .35s;
+
+  z-index: 101;
+}
+
+.hoja-info.abierta {
+  transform: translateY(0);
+}
+
+.hoja-info-manija {
+  width: 40px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--gris);
+  margin: 0 auto 16px;
+}
+
+.hoja-info h3 {
+  margin: 0 0 4px;
+  color: var(--azul);
+}
+
+.hoja-info-detalle {
+  margin: 0 0 14px;
+  color: var(--naranja);
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.hoja-info p {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.hoja-info-cerrar {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  border: none;
+  border-radius: 14px;
+  background: var(--azul);
+  color: white;
+  font-weight: bold;
+}
+
+
+/* ==============================
+   EFECTO: CONFETI (AR)
+============================== */
+
+.confeti-contenedor {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 6;
+}
+
+.confeti-pieza {
+  position: absolute;
+  width: 8px;
+  height: 14px;
+  border-radius: 2px;
+  opacity: 0;
+  animation: confetiCaida 1.8s ease-out forwards;
+}
+
+@keyframes confetiCaida {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), var(--dy)) rotate(var(--giro));
+  }
 }
